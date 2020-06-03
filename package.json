@@ -1,0 +1,12 @@
+{
+  "name": "cst236-cst233-assign3",
+  "version": "0.0.0",
+  "description": "CST236CST233Assign3",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "mongodb": "^3.5.8"
+  }
+}
