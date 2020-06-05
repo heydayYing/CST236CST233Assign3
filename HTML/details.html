@@ -1,11 +1,68 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
+    <title>Add new movie</title>
 </head>
 <body>
+    <script>
+        $(document).ready(() => {
+            $.ajax({
+                url: "http://localhost:3000/actors",
+                type: "get",
+                dataType: "json",
+                success: (resp) => {
+                    $("#actors").empty();
+                    $("#actresses").empty();
+                    let sActors = "";
+                    let sActresses = "";
+                    for (let i = 0; i < resp.length; i++) {
+      
+                        if (resp[i]["Gender"] == "Male") {
+                            let sActor = resp[i]["First Name"] + " " + resp[i]["Last Name"];
+                            sActors += "<option value='" + sActor + "'>" + sActor + "</option>";
+                        }
+                        else if (resp[i]["Gender"] == "Female") {
+                            let sActress = resp[i]["First Name"] + " " + resp[i]["Last Name"];
+                            sActresses += "<option value='" + sActress+ "'>" + sActress + "</option>";
+                        }
+                    }
+                    $("#actors").append(sActors);
+                    $("#actresses").append(sActresses);
 
+                }
+            })
+        })
+    </script>
+    <form action="http://localhost:3001/movies" method="post">
+        <table>
+            <tr>
+                <td><label for="movie">Please Enter a Movie's Name</label></td>
+                <td><input id="movie" name="Movie" type="text" required /></td>
+            </tr>
+            <tr>
+                <td><label for="actors">Leading Actor</label>
+                <td>
+                    <select id="actors" name="Actor">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td><label for="actresses">Leading Actresses</label>
+                <td>
+                    <select id="actresses" name="Actress">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" /></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
