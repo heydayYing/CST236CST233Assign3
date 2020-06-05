@@ -11,7 +11,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7d7924b7-f051-4b19-a07b-3830ed4b3e78</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>accessMovies.js</StartupFile>
+    <StartupFile>accessDB.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -28,10 +28,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="accessActors.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="accessMovies.js">
+    <Content Include="accessDB.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="estCon.js">

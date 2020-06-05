@@ -1,11 +1,61 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
     <title></title>
 </head>
 <body>
+    <script>
+        $(document).ready(() => {
+            $.ajax({
+                url: "http://localhost:3000/actors",
+                type: "get",
+                dataType: "json",
+                success: (resp) => {
+                    $("#actors").empty();
+                    let sActors = "";
+                    for (let i = 0; i < resp.length; i++) {
+                            let sActor = resp[i]["First Name"] + " " + resp[i]["Last Name"];
+                            sActors += "<option value='" + sActor + "'>" + sActor + "</option>";
+                       
+                    }
+                    $("#actors").append(sActors);
 
+                }
+            }),
+                $("#actors").change(() => {
+                    var sAct = $("#actors").val();                   
+                    $.ajax({
+                        url: "http://localhost:3000/movies",
+                        type: "get",
+                        data: { "name": sAct },
+                        dataType: "json",
+                        success: (resp) => {
+                            let sHTML = "";
+                            for (let i = 0; i < resp.length; i++) {
+                                let sColleague = resp[i].Actor != sAct ? resp[i].Actor : resp[i].Actress;
+                                sHTML += "<tr><td>" + resp[i].Movie + "</td><td>" + sColleague + "</td></tr>";
+                            }
+                            $("#relationList").append(sHTML);
+                        }
+                    })
+                })
+        })
+    </script>
+    <div>
+        <label for="actors">Leading Actor/Actress</label>
+
+        <select id="actors" name="Actor" required>
+            <option value="">--SELECT--</option>
+        </select>
+        <br /><br />
+        <table id="relationList">
+            <tr><th>Movie</th><th>Worked With</th></tr>
+        </table>
+    </div>
 </body>
 </html>

@@ -49,7 +49,7 @@ module.exports = {
                 const collection = client.db(sCluster).collection(sCollection);
 
                 collection.insertOne(inStateMent).then(result => {
-                    resolve("Insert is successful " + result.insertedId);
+                    resolve("Movie is saved ");
                     client.close();
                 }).catch(err => console.log(err));
             })

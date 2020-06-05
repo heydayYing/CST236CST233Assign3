@@ -1,13 +1,29 @@
 "use strict";
 var obExpress = require("express");
-var PORT = 3001;
+var PORT = 3000;
 
 var app = obExpress();
 
 const myCRUD = require("./MovieCRUD");
+const selQuery = myCRUD.selQuery;
 const insertQuery = myCRUD.insertQuery;
-const conDBMovies = myCRUD.estCon("coet", "Movies");
 const obPath = require("path");
+
+
+
+app.get("/actors", (req, res) => {
+    const conDBActors = myCRUD.estCon;
+    conDBActors("coet", "Actors");
+    selQuery({}).then(data => {
+        res.send(data);
+    })
+
+});
+
+app.get("/html/:file", (req, res) => {
+    let sFile = obPath.join(__dirname + "/HTML/" + req.params.file)
+    res.sendFile(sFile);
+})
 
 const bodyParser = require("body-parser");
 
@@ -25,13 +41,20 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.post("/movies", (req, res) => {
-    console.log(req);
+    const conDBMovies = myCRUD.estCon("coet", "Movies");
     insertQuery(req.body).then(data => {
         res.send(data);
-       
+    })
+})
+
+app.get("/movies", (req, res) => {
+    const conDBMovies = myCRUD.estCon("coet", "Movies");
+    console.log(req.query);
+    selQuery({ $or: [{ Actor: req.query.name }, { Actress: req.query.name }] }).then(data => {
+        res.send(data);
     })
 })
 
 
+app.listen(PORT, () => console.log("Acess to Actors listening on Port" + PORT));
 
-app.listen(PORT, () => console.log("Assignment listening on Port" + PORT));
