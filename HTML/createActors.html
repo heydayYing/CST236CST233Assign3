@@ -1,11 +1,41 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
+    <title>Create a new Actor/Actress</title>
 </head>
 <body>
 
+    <div style="margin-top:50px">
+        <form action="http://localhost:3000/actors" method="post">
+            <table>
+                <tr>
+                    <td><label for="firstName">First Name</label></td>
+                    <td><input type="text" id="first" name="First Name" required /></td>
+                </tr>
+                <tr>
+                    <td><label for="lastName">Last Name</label></td>
+                    <td><input type="text" id="last" name="Last Name" required /></td>
+                </tr>
+                <tr>
+                    <td><label>Gender</label></td>
+                    <td>
+                        <input type="radio" name="Gender" id="male" value="Male" required />
+                        <label for="male">Male</label>
+                        <input type="radio" name="Gender" id="female" value="Female" />
+                        <label for="female">Female</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+            
 </body>
 </html>

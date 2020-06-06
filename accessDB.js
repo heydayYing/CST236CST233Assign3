@@ -55,6 +55,13 @@ app.get("/movies", (req, res) => {
     })
 })
 
+app.post("/actors", (req, res) => {
+    const conDBActors = myCRUD.estCon;
+    conDBActors("coet", "Actors");
+    insertQuery(req.body).then(data => {
+        res.send(data);
+    })
+})
 
 app.listen(PORT, () => console.log("Acess to Actors listening on Port" + PORT));
 
