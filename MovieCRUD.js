@@ -31,9 +31,9 @@ module.exports = {
             const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
             client.connect(err => {
                 if (err) throw err;
-                const collection = client.db(sCluster).collection(sCollection);
-                let updateStatement = { $set: sUpdate };
-                collection.updateOne(sSelection, updateStatement).then(result => {
+                const collection = client.db(sCluster).collection(sCollection);                          
+                let updateStatement = { $push: sUpdate };
+                collection.updateOne(sSelection, updateStatement).then((result) => {
                     resolve(result);
                     client.close();
                 }).catch(err => console.log(err));

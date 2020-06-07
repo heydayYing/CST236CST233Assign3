@@ -8,7 +8,7 @@ const myCRUD = require("./MovieCRUD");
 const selQuery = myCRUD.selQuery;
 const insertQuery = myCRUD.insertQuery;
 const obPath = require("path");
-
+const updateQuery = myCRUD.updateQuery;
 
 
 app.get("/actors", (req, res) => {
@@ -49,8 +49,22 @@ app.post("/movies", (req, res) => {
 
 app.get("/movies", (req, res) => {
     const conDBMovies = myCRUD.estCon("coet", "Movies");
-    console.log(req.query);
     selQuery({ $or: [{ Actor: req.query.name }, { Actress: req.query.name }] }).then(data => {
+        res.send(data);
+    })
+})
+
+app.get("/movielist", (req, res) => {
+    const conDBMovies = myCRUD.estCon("coet", "Movies");
+    selQuery({}).then(data => {
+        res.send(data);
+    })
+})
+
+app.get("/movie", (req, res) => {
+    const conDBMovies = myCRUD.estCon("coet", "Movies");
+    selQuery( req.query ).then(data => {
+
         res.send(data);
     })
 })
@@ -59,6 +73,16 @@ app.post("/actors", (req, res) => {
     const conDBActors = myCRUD.estCon;
     conDBActors("coet", "Actors");
     insertQuery(req.body).then(data => {
+        res.send(data);
+    })
+})
+
+app.put("/movies", (req, res) => {
+    const conDBMovies = myCRUD.estCon("coet", "Movies");
+    let rate = parseInt(req.body.ratings, 10);
+    console.log(rate);
+    updateQuery({ Movie: req.body.movie }, { Ratings:rate }).then((data) => {
+
         res.send(data);
     })
 })

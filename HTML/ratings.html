@@ -1,11 +1,99 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
+    <title>Rating The Movie</title>
 </head>
 <body>
+    <script>
+        $(document).ready(() => {
+           
+            $.ajax({
+                url: "http://localhost:3000/movielist",
+                type: "get",
+                dataType: "json",
+                success: (resp) => {
+                    $("#browsers").empty();
+                    let sMovies = "";
+                    for (let i = 0; i < resp.length; i++) {
+                        sMovies += "<option value='" + resp[i].Movie + "'>" + resp[i].Movie + "</option>";
 
+                    }
+                    $("#browsers").append(sMovies);
+                }
+            }),
+            $("#rateMovie").submit((e) => {
+                e.preventDefault();
+                let sMovie = $("#movie").val();
+                let iRate = parseInt($("#myRange").val(), 10);
+                
+                $.ajax({
+                    url: "http://localhost:3000/movies",
+                    type: "put",
+                    data: { "movie": sMovie, "ratings": iRate },
+                    dataType: "json",
+                    success: (resp) => {
+                       
+                        $.ajax({
+                            url: "http://localhost:3000/movie",
+                            type: "get",
+                            data: { "Movie": sMovie},
+                            dataType: "json",
+                            success: (res) => {
+                                let ratings = res[0].Ratings;
+
+                                let sumRating = 0;
+
+                                for (let i = 0; i < ratings.length; i++) {
+                                    sumRating += ratings[i];
+                                }
+                                let avgRating = Math.round( sumRating*1.0/ ratings.length,1);
+                                $("#avgRate").css("display", "block");
+                                $("#rateValue").text(avgRating);
+                            }
+                        });
+                        
+                    }
+                })
+            })   
+          })
+    </script>
+    <div style="margin-top:50px">
+        <form id="rateMovie">
+            <table>
+                <tr>
+                    <td><label for="movie">Please Choose a Movie</label></td>
+                    <td>
+                        <input type="text" list="browsers" id="movie">
+                        <datalist id="browsers">
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="rating">Rating</label>
+                    <td>
+                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="rateOutputId.value = myRange.value" name="Rating">
+                        <output name="rateOutputName" id="rateOutputId">50</output>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" id="submit" /></td>
+                </tr>
+
+            </table>
+        </form>
+        <br /><br />
+        <p style="display:none" id="avgRate">
+            
+            <label>Average Rate</label>
+            <br />
+            <label id="rateValue"></label>
+        </p>
+    </div>
 </body>
 </html>
