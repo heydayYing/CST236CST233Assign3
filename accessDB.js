@@ -50,6 +50,7 @@ app.post("/movies", (req, res) => {
 app.get("/movies", (req, res) => {
     const conDBMovies = myCRUD.estCon("coet", "Movies");
     selQuery({ $or: [{ Actor: req.query.name }, { Actress: req.query.name }] }).then(data => {
+        console.log(data);
         res.send(data);
     })
 })

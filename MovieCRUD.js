@@ -26,6 +26,7 @@ module.exports = {
         })
 
     },
+    //this update query only push item into an existing array field. If the array field is not existing, the field will be created initially as an array   
     updateQuery: (sSelection, sUpdate) => {
         return new Promise((resolve) => {
             const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });

@@ -23,7 +23,7 @@
                     for (let i = 0; i < resp.length; i++) {
       
                         if (resp[i]["Gender"] == "Male") {
-                            let sActor = resp[i]["First Name"] + " " + resp[i]["Last Name"];
+                            let sActor = resp[i]["First Name"] + " " +resp[i]["Last Name"];
                             sActors += "<option value='" + sActor + "'>" + sActor + "</option>";
                         }
                         else if (resp[i]["Gender"] == "Female") {
@@ -40,7 +40,7 @@
     </script>
     <div style="margin-top:50px">
     <form action="http://localhost:3000/movies" method="post">
-        <table>
+        <table class="table">
             <tr>
                 <td><label for="movie">Please Enter a Movie's Name</label></td>
                 <td><input id="movie" name="Movie" type="text" required /></td>

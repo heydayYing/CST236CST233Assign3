@@ -28,6 +28,8 @@
                 }
             }),
                 $("#actors").change(() => {
+                    $("#relationList").empty();
+                    $("#relationList").append(" <thead class=\"thead - dark\"><tr><th>Movie</th><th>Worked With</th></tr></thead>");
                     var sAct = $("#actors").val();                   
                     $.ajax({
                         url: "http://localhost:3000/movies",
@@ -53,8 +55,8 @@
             <option value="">--SELECT--</option>
         </select>
         <br /><br />
-        <table id="relationList">
-            <tr><th>Movie</th><th>Worked With</th></tr>
+        <table id="relationList" class="table">
+            
         </table>
     </div>
 </body>

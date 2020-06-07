@@ -26,8 +26,8 @@
                     $("#browsers").append(sMovies);
                 }
             }),
-            $("#rateMovie").submit((e) => {
-                e.preventDefault();
+            $("#submit").click(() => {
+                
                 let sMovie = $("#movie").val();
                 let iRate = parseInt($("#myRange").val(), 10);
                 
@@ -62,13 +62,13 @@
             })   
           })
     </script>
-    <div style="margin-top:50px">
+    <div class="justify-content-center">
         <form id="rateMovie">
-            <table>
+            <table class="table">
                 <tr>
                     <td><label for="movie">Please Choose a Movie</label></td>
                     <td>
-                        <input type="text" list="browsers" id="movie">
+                        <input type="text" list="browsers" id="movie" required>
                         <datalist id="browsers">
                         </datalist>
                     </td>
@@ -82,7 +82,7 @@
                 </tr>
 
                 <tr>
-                    <td><input type="submit" id="submit" /></td>
+                    <td><button type="button" class="btn btn-primary" id="submit" >Submit</button></td>
                 </tr>
 
             </table>
